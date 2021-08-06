@@ -16,30 +16,36 @@ function find(startX, startY, endX, endY, blocks) {
     let edge;
     let savedBlocks=[];
     savedBlocks = blocks.slice();
-    while (!found) {
-        cp = pmax.shift();
-        edge = edges.shift();
-        allowedLength = Math.abs(endX - edge[0]) + Math.abs(endY - edge[1]);
-        shortestPath(edge[0], edge[1], [], savedBlocks);
+    while (!found&&allowedLength<50) {
+        
+        let savedBlocks = [];
+        savedBlocks = blocks.slice();
+        // cp = pmax.shift();
+        // edge = edges.shift();
+        // allowedLength = Math.abs(endX - edge[0]) + Math.abs(endY - edge[1]);
+        // shortestPath(edge[0], edge[1], [], savedBlocks);
+        shortestPath(startX, startY, [], savedBlocks);
+        allowedLength++;
         // console.log(edge[0], edge[1],endX,endY, savedBlocks);
-        savedBlocks=savedBlocks.map((a) => [a[0],a[1]- allowedLength])
-        console.log(savedBlocks,edges,pmax);
+        // savedBlocks=savedBlocks.map((a) => [a[0],a[1]- allowedLength])
+        // console.log(savedBlocks,edges,pmax);
+        console.log("iterations",savedBlocks.length-snake.length)
     }
     console.log("-------------------")
     if (found) return reqPath;
     else return [];
     function shortestPath(xo, yo, p2, p) {
         // console.log(xo, yo, xD, yD, p2, p);
-        if (performance.now() - t0 > 400) {
-            found = true; return;
-        }
+        // if (performance.now() - t0 > 400) {
+        //     found = true; return;
+        // }
         // generate the shortest possible path from A to B
         if (xo < 0 || xo > maxx || yo < 0 || yo > maxy) return;
         
         i = p2.length;
-        // if (i > allowedLength) {
-        //     return;
-        // }
+        if (i > allowedLength) {
+            return;
+        }
         if (i < blocks.length)
             j = i;
         else
@@ -60,32 +66,58 @@ function find(startX, startY, endX, endY, blocks) {
         }
         
         var p3 = p2.slice();
-        if (i > allowedLength) {
+        // if (i > allowedLength) {
             
-            pmax.push([...cp, ...p2]);
-            edges.push([xo, yo]);
-            // console.log(edges, pmax)
-            return;
-        }
+        //     pmax.push([...cp, ...p2]);
+        //     edges.push([xo, yo]);
+        //     // console.log(edges, pmax)
+        //     return;
+        // }
         p3.push(xo * 100 + yo);
         if (xo == endX && yo == endY) {
-            reqPath = [...cp, ...p3];
+            // reqPath = [...cp, ...p3];
+            reqPath = p3;
             found = true;
             return;
         }
-        let offx = 1, offy = 1;
+        let offx = 0, offy = 0;
         if(endX!=xo)
             offx = Math.abs(endX - xo) / (endX - xo);
         if(endY!=yo)
             offy = Math.abs(endY - yo) / (endY - yo);
-        if (!found)
-            shortestPath(xo + 0, yo + offy, p3, p);
-        if (!found)
-            shortestPath(xo + offx, yo + 0, p3, p);
-        if (!found)
-            shortestPath(xo + 0, yo - offy, p3, p);
-        if (!found)
-            shortestPath(xo - offx, yo + 0, p3, p);
+        // if (endX > xo) { }
+        if (offx * offy) {
+            if (!found)
+                shortestPath(xo + 0, yo + offy, p3, p);
+            if (!found)
+                shortestPath(xo + offx, yo + 0, p3, p);
+            if (!found)
+                shortestPath(xo + 0, yo - offy, p3, p);
+            if (!found)
+                shortestPath(xo - offx, yo + 0, p3, p);
+        }
+        else if (offx ==0&&offy) {
+            if (!found)
+                shortestPath(xo + 0, yo + offy, p3, p);
+            if (!found)
+                shortestPath(xo + 1, yo + 0, p3, p);
+            if (!found)
+                shortestPath(xo - 1, yo + 0, p3, p);
+            if (!found)
+                shortestPath(xo + 0, yo - offy, p3, p);
+        }
+        else if (offy ==0&&offx) {
+            if (!found)
+                shortestPath(xo + offx, yo + 0, p3, p);
+            if (!found)
+                shortestPath(xo + 0, yo + -1, p3, p);
+            if (!found)
+                shortestPath(xo - 0, yo + 1, p3, p);
+            if (!found)
+                shortestPath(xo - offx, yo + 0, p3, p);
+            
+        }
+        
     
         // },100)
         // p2 = [];
