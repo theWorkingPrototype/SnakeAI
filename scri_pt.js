@@ -20,7 +20,7 @@ var snake = [];
 var food;
 var k = false;
 var xvel = 1, yvel = 0;
-var speed, maxSpeed = 50;
+var speed, maxSpeed = 1;
 var messagesHitWall = ["ouchh", "AaaaaaA", "*Angry hissing*", "tastes like dirt"];
 var messagesHitItself = ["Auuu", "hiss-hisss"];
 var messagesDuck = ["quack", "quack!"];
@@ -65,7 +65,7 @@ function initialise() {
     score = 0;
     limitScore = 30;
     xvel = 1; yvel = 0;
-    speed = 500;
+    speed =50   ;
     first = true;
     start = false;
     paused = false;
@@ -229,11 +229,10 @@ function setFood() {
     }
 }
 function modifySpeed(currentScore) {
-    return;
-    //speed is time delay in miliseconds
-    // speed = 125 - currentScore;
-    // if (currentScore > 40) speed--;
-    // if (speed < maxSpeed) speed = maxSpeed;
+    // speed is time delay in miliseconds
+    speed = Math.min(speed, 125 - currentScore);
+    if (currentScore > 40) speed--;
+    if (speed < maxSpeed) speed = maxSpeed;
 }
 
 function removeFood() {
@@ -258,7 +257,6 @@ function blinkEyes(times) {
     //doesnt look good hehh blinking eyes while moving uk
     // if (times <= 0) return;
     // var eye = board.getElementsByClassName("snake")[snake.length - 1].getElementsByClassName("eye");
-    // // console.log(times);
     // size -= 2;
     // if (eye[0].style.left == eye[1].style.left) {
     //     eye[0].style.height = parseInt(size / 4) + "px";
@@ -438,11 +436,9 @@ function moveSnake() {
     else k = false;
     tt=ai();
     if (!paused && !game_over) {
-        // console.log(tt);
         sssss = speed;
         speed = speed - tt;
-        if (speed < 50) speed = 50;
-        // console.log(speed);
+        if (speed < maxSpeed) speed = maxSpeed;
         setTimeout(() => { moveSnake() }, speed);
         speed = sssss;
     }
@@ -527,7 +523,6 @@ function play() {
     var endInterval = setInterval(() => {
         score++;
         levelLineController();
-        // console.log(limitScore)
         if (score >= saveScore)
             clearInterval(endInterval);
     }, 20);
@@ -634,7 +629,6 @@ function erase() {
     var dash = setInterval(() => {
         score--;
         levelLineController();
-        // console.log(i);
         if (arr[i])
             arr[i].classList.add("disappear");
         i++;
@@ -772,9 +766,6 @@ function displayMessage(select) {
 
 function kDown(e) {
     if (game_over) return;
-    console.log(e.code);
-    // console.log("xvel"+xvel+" "+"yvel"+yvel);
-    // console.log("nxvel"+nxvel+" "+"nyvel"+nyvel);
     if (!start) if (e.code == "Enter") { go(); }
     else return;
     if (e.code == "Space" && !game_over) { if (paused) { play(); go(); return; } pause(); return; }
