@@ -2,8 +2,9 @@
 function getComponents() {
   const board = document.getElementById("board") || new HTMLElement;
   const scoreBoard = document.getElementById("score") || new HTMLElement;
-  const levelLine = document.getElementById("line") || new HTMLElement;
-  return { board, scoreBoard, levelLine };
+  const levelLine = document.getElementById("line") || new HTMLElement
+  const darkBackground = document.getElementById("dark") || new HTMLElement;
+  return { board, scoreBoard, levelLine, darkBackground };
 }
 
 const computeCellSize = (): number => Math.min(
@@ -471,7 +472,7 @@ class ScoreBoard {
 }
 
 class Game {
-  components: { board: HTMLElement; scoreBoard: HTMLElement; levelLine: HTMLElement; };
+  components: { board: HTMLElement; scoreBoard: HTMLElement; levelLine: HTMLElement; darkBackground: HTMLElement };
   snake: Snake;
   food: Food;
   scoreBoard: ScoreBoard;
@@ -534,6 +535,13 @@ class Game {
 
     // For automation, putting min render interval as 0.
     this.state.renderInterval = Math.max(defaults.lowestRenderInterval, renderInterval);
+
+    if (this.state.score == 30) {
+      // Enable dark background.
+      this.components.darkBackground.style.opacity = '1';
+      let topText = document.getElementById("topText");
+      if (topText) topText.style.color = "white";
+    }
   }
 
   onCollision() {

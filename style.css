@@ -7,7 +7,7 @@ body{
     overflow: hidden;
 }
 
-.topText {
+#topText {
     width: 0px;
 }
 
@@ -27,7 +27,7 @@ body{
     transition: opacity 1s ease-in;
     z-index: -10;
 }
-.black{
+#dark{
     position:absolute;
     top: 0px;
     width:100%;

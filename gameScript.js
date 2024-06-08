@@ -2,7 +2,8 @@ function getComponents() {
     var board = document.getElementById("board") || new HTMLElement;
     var scoreBoard = document.getElementById("score") || new HTMLElement;
     var levelLine = document.getElementById("line") || new HTMLElement;
-    return { board: board, scoreBoard: scoreBoard, levelLine: levelLine };
+    var darkBackground = document.getElementById("dark") || new HTMLElement;
+    return { board: board, scoreBoard: scoreBoard, levelLine: levelLine, darkBackground: darkBackground };
 }
 var computeCellSize = function () { return Math.min(2 * Math.floor(Math.min(1000, window.innerWidth) / 80), 2 * Math.floor(Math.min(500, window.innerHeight) / 40)); };
 var defaults = {
@@ -478,6 +479,13 @@ var Game = /** @class */ (function () {
             renderInterval--;
         // For automation, putting min render interval as 0.
         this.state.renderInterval = Math.max(defaults.lowestRenderInterval, renderInterval);
+        if (this.state.score == 30) {
+            // Enable dark background.
+            this.components.darkBackground.style.opacity = '1';
+            var topText = document.getElementById("topText");
+            if (topText)
+                topText.style.color = "white";
+        }
     };
     Game.prototype.onCollision = function () {
         if (this.state.score == 0) {
