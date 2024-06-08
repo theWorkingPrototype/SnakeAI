@@ -1,0 +1,276 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    /* background-color: rgb(30, 30, 30); */
+    margin: 0px;
+    overflow: hidden;
+}
+
+.topText {
+    width: 0px;
+}
+
+.bkg{
+    /* z-index: 11; */
+    top:0px;
+    z-index: -1;
+    animation: bkanim 1s forwards;
+}
+.white{
+    position:absolute;
+    top: 0px;
+    width:100%;
+    height:100%;
+    background-image: url("whitetris.jpg");
+    opacity:1;
+    transition: opacity 1s ease-in;
+    z-index: -10;
+}
+.black{
+    position:absolute;
+    top: 0px;
+    width:100%;
+    height:100%;
+    background-image: url("blacktris.jpg");
+    opacity:0;
+    transition: opacity 1s ease-in;
+    z-index: -10;
+}
+.bkganim{
+    animation:bkanim 1s forwards;
+}
+/* .revbkganim{
+    animation:bkanim 1s backwards;
+} */
+@keyframes bkanim {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+h1{
+    transition: color 1s linear;
+    font-size: 5vmin;
+    margin:3vh 1.5vh;
+    font-family: 'Press Start 2P';
+}
+
+
+
+.tag{
+    text-shadow: 1px 1px 1px;
+    font-family: 'Inconsolata', monospace;
+    position:absolute;
+    right:0px;
+    bottom:0px;
+    text-decoration: none;
+    color:black;
+    color:rgb(255, 123, 0);
+    padding:.5vh;
+    font-size: 3vh;
+    z-index: -1;
+    /* -webkit-text-stroke-width: 1px; */
+}
+
+
+
+
+/*Add orange ^~^ shine to Tag*/
+.glowy {
+    background-image: -webkit-linear-gradient(0deg, transparent 20%, rgb(180, 180, 180) 50%,  transparent 80%);
+    animation-timing-function: linear;
+	-webkit-animation-timing-function:linear;
+    background-size: 600px;
+	-webkit-background-size: 600px;
+	color: rgba(3, 0, 0, 0);
+    background-clip: text;
+	-webkit-background-clip: text;
+    animation-name: glow;
+	-webkit-animation-name: glow;
+    animation-duration: 20s;
+	-webkit-animation-duration: 20s;
+	-webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+@keyframes glow {
+	0% {
+		background-position: -600px;
+	}
+	100% {
+		background-position: 600px;
+		
+	}
+}
+
+
+.text{
+    position: absolute;
+    bottom:0vh;
+    left:0vh;
+    line-height: 2.8vh;
+    padding:2vh;
+    padding-left:3vh;
+    font-size: 2vh;
+    margin:0px;
+}
+p>span{
+    font-style: italic;
+    font-size: .8em;
+}
+.node{
+    position:absolute;
+    border:2px transparent;
+}
+#board{
+    position:absolute;
+    background-color: black;
+    overflow: hidden;
+    z-index: 10;
+}
+#line{
+    height:1%;
+    width:0%;
+    background-color: #3030ff;
+    position: absolute;
+    top:0%;
+    left:0%;
+    overflow: hidden;
+}
+.loadline, .sline{
+    transition-duration: 1s;
+    background-color:rgba(255, 255, 255, .3);
+    position: absolute;
+    left:0%;
+    width:0%;
+    height:100%;
+}
+.sline{
+    transition-duration:unset;
+    background-color: #eeAA08;
+}
+
+.disappear{
+    animation:diss 1s ease forwards;
+}
+
+@keyframes diss {
+    0%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+    }
+}
+.snake, .snakeR{
+    position: absolute;
+    z-index: 15;
+    background-color: white;
+    opacity: 0.6;
+}
+.eye{
+    position:absolute;
+    background-color: black;
+}
+.food{
+    z-index:11;
+    position: absolute;
+}
+#score{
+    position: absolute;
+    visibility: hidden;
+    color: #696969;
+    z-index: 100;
+    text-shadow: 0px 0px 1px #000;
+    padding: 0px;
+    margin: 20px;
+    padding-bottom:3em;
+}
+.sideText{
+    font-family: 'Pangolin', 'cursive';
+    position: absolute;
+    right:0px;
+    bottom: 0px;
+    color:limegreen;
+}
+.dialogue{
+    letter-spacing: 2px;
+    position: relative;
+    margin: 10% 30% 10% 30%;
+    font-family:'Pangolin', 'cursive';
+    padding-top:3px;
+    padding-bottom: 1px;
+    color:#ffbb00e8;
+    text-align: center;
+}
+
+.dialogue h3{
+    opacity: 1;
+    text-shadow: 0px 0px 10px black;
+}
+.translucent{
+    width:100%;
+    height: 100%;
+    top:0px;
+    left:0px;
+    position: absolute;
+    z-index:121;
+    background-color: rgb(100,100,100,.1);
+    padding:0px 4px;
+    border-radius: 5px;
+    /* filter: saturate(0%) blur(4px); */
+    backdrop-filter: saturate(0%) blur(4px);
+}
+
+.btns{
+    margin:2em;
+    align-items: center;
+}
+.btn{
+    text-shadow: 1px 1px 1px black;
+    letter-spacing: normal;
+    font-size: .7em;
+    font-family: 'Sigmar one';
+    border-radius: 2px;
+    padding: .5em 4em;
+    background-color: #ffbb00;
+    color:black;
+    width:auto;
+    display: inline-block;
+    background: radial-gradient(circle at bottom center, #FFC837 15px, #FF8008);
+
+}
+.btn:hover{
+    background: radial-gradient(circle at bottom center, #FFC837 40px, #FF8008);
+    cursor:pointer;
+}
+.btn:active{
+    background: radial-gradient(circle at bottom center, #FFC837 0px, #FF8008);
+}
+
+.message{
+    letter-spacing: 1px;
+    font-weight: 200;
+    font-family: 'Pangolin','cursive';
+    position: absolute;
+    padding: 0px 1px;
+    border-radius: 3px;
+    background-color:#dd4545;
+    color:white;
+    z-index: 120;
+}
+
+
+@keyframes load {
+    0%{
+        right:100%;
+    }
+    100%{
+        right:-50%;
+    }
+}
+
+/* @media (all media controlled by JS;) */
